@@ -1,0 +1,66 @@
+<!-- Recent Jobs Section -->
+<!-- <div class="bg-gray-100 py-16">
+  <div class="container mx-auto px-4 md:px-6">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold text-military-navy">Vacantes Recientes</h2>
+      <a routerLink="/jobs" class="text-military-navy hover:text-military-green flex items-center">
+        Ver todas <i class="lucide lucide-arrow-right ml-2 h-4 w-4"></i>
+      </a>
+    </div>
+    <div class="mt-4">
+      <h2 class="text-2xl font-bold mb-6 text-military-navy">Vacantes Disponibles</h2>
+      <div class="space-y-4">
+        <app-vacancy-list
+          *ngFor="let job of jobsData"
+          [id]="job.id"
+          [title]="job.title"
+          [company]="job.company"
+          [location]="job.location"
+          [type]="job.type"
+          [requirements]="job.requirements"
+          [postedDate]="job.postedDate">
+        </app-vacancy-list>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="bg-gray-100 py-16">
+  <div class="container mx-auto px-4 md:px-6">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-3xl font-bold text-military-navy">Vacantes Recientes</h2>
+      <a routerLink="/jobs" class="text-military-navy hover:text-military-green flex items-center">
+        Ver todas <i class="lucide lucide-arrow-right ml-2 h-4 w-4"></i>
+      </a>
+    </div>
+
+    <!-- Filtro de búsqueda -->
+    <div class="mb-6">
+      <div class="relative">
+        <input
+          type="text"
+          placeholder="Buscar por título, compañía o ubicación..."
+          [(ngModel)]="searchTerm"
+          class="w-full px-4 py-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-military-gold"
+        />
+        <lucide-angular [img]="Search " class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5"></lucide-angular>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h2 class="text-2xl font-bold mb-6 text-military-navy">Vacantes Disponibles</h2>
+      <div class="space-y-4">
+        <app-vacancy-list
+          *ngFor="let job of filteredJobs()"
+          [id]="job.id"
+          [title]="job.title"
+          [company]="job.company"
+          [location]="job.location"
+          [type]="job.type"
+          [requirements]="job.requirements"
+          [postedDate]="job.postedDate">
+        </app-vacancy-list>
+      </div>
+    </div>
+  </div>
+</div>

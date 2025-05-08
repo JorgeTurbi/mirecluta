@@ -1,0 +1,152 @@
+<div class="container mx-auto px-4 py-8">
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-military-navy">Mi Perfil</h1>
+    <div class="flex gap-2">
+      <button
+      class="flex items-center bg-military-gold text-black hover:bg-amber-500 px-4 py-2 rounded"
+      *ngIf="activeTab === 'applications'"
+      (click)="isCreateJobOpen = true"
+    >
+      <lucide-icon [name]="Plus" class="h-4 w-4 mr-2 text-black"></lucide-icon>
+      Crear Vacante
+    </button>
+
+      <button
+        class="flex items-center bg-military-gold text-black hover:bg-amber-500 px-4 py-2 rounded"
+        (click)="isEditProfileOpen = true" (click)="openEditProfile()"
+      >
+
+        <lucide-angular [img]="Pencil" class="h-4 w-4 mr-2 text-military-gold"></lucide-angular> Editar Perfil
+      </button>
+    </div>
+  </div>
+
+  <div class="w-full mb-8">
+    <div class="grid w-full md:w-auto md:inline-grid grid-cols-4 gap-4">
+      <button class="font-semibold px-4 py-2 rounded" [ngClass]="{'bg-military-gold text-black': activeTab === 'profile'}" (click)="setActiveTab('profile')">Perfil</button>
+      <button class="font-semibold px-4 py-2 rounded" [ngClass]="{'bg-military-gold text-black': activeTab === 'applications'}" (click)="setActiveTab('applications')">Aplicaciones</button>
+      <button class="font-semibold px-4 py-2 rounded" [ngClass]="{'bg-military-gold text-black': activeTab === 'settings'}" (click)="setActiveTab('settings')">Configuración</button>
+      <button class="font-semibold px-4 py-2 rounded" [ngClass]="{'bg-military-gold text-black': activeTab === 'downloads'}" (click)="setActiveTab('downloads')">Documentos</button>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'profile'">
+    <div class="bg-white rounded shadow p-6">
+      <div class="flex items-center space-x-6 mb-4">
+        <img [src]="profileData.profileImage" alt="Foto de perfil" class="w-24 h-24 rounded-full object-cover border border-gray-300" />
+        <div>
+          <h2 class="text-2xl font-bold">{{ profileData.name }}</h2>
+          <p class="text-sm text-gray-600">{{ profileData.rank }} | {{ profileData.specialization }}</p>
+        </div>
+      </div>
+
+      <div class="mb-6" *ngIf="profileData.experiences?.length">
+        <h3 class="text-lg font-semibold mb-2">Experiencia</h3>
+        <div *ngFor="let exp of profileData.experiences" class="mb-2">
+          <p class="font-semibold">{{ exp.title }} - {{ exp.organization }}</p>
+          <p class="text-sm text-gray-500">{{ exp.period }}</p>
+          <p class="text-sm text-gray-700">{{ exp.description }}</p>
+          <a href="https://uou.ac.in/sites/default/files/slm/Introduction-cyber-security.pdf" target="_blank" class="text-blue-600 text-sm underline">Descargar documento</a>
+        </div>
+      </div>
+
+      <div class="mb-6" *ngIf="profileData.education?.length">
+        <h3 class="text-lg font-semibold mb-2">Educación</h3>
+        <ul class="list-disc list-inside">
+          <li *ngFor="let edu of profileData.education">
+            {{ edu.degree }} - {{ edu.institution }} ({{ edu.year }})
+            <a href="https://uou.ac.in/sites/default/files/slm/Introduction-cyber-security.pdf" target="_blank" class="text-blue-600 text-sm underline ml-2">Descargar</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mb-6" *ngIf="profileData.certificates?.length">
+        <h3 class="text-lg font-semibold mb-2">Certificados</h3>
+        <ul class="list-disc list-inside">
+          <li *ngFor="let cert of profileData.certificates">
+            {{ cert.title }} - {{ cert.institution }} ({{ cert.year }})
+            <a href="cert.document" target="_blank" class="text-blue-600 text-sm underline ml-2">Descargar</a>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="profileData.skills?.length">
+        <h3 class="text-lg font-semibold mb-2">Habilidades</h3>
+        <ul class="list-disc list-inside grid grid-cols-2 gap-x-4">
+          <li *ngFor="let skill of profileData.skills">{{ skill }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'applications'">
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold">Oficial de Operaciones Especiales</h3>
+            <p class="text-sm text-gray-600">Ejército Nacional - Bogotá, Colombia</p>
+          </div>
+          <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+            En revisión
+          </span>
+        </div>
+        <p class="text-sm mt-2 text-gray-500">Aplicado: 10/05/2025</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold">Instructor de Entrenamiento Táctico</h3>
+            <p class="text-sm text-gray-600">Fuerza Aérea - Medellín, Colombia</p>
+          </div>
+          <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+            Entrevista programada
+          </span>
+        </div>
+        <p class="text-sm mt-2 text-gray-500">Aplicado: 05/05/2025</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'settings'">
+    <div class="bg-white p-6 rounded shadow space-y-6 max-w-xl">
+      <h2 class="text-2xl font-bold mb-2">Configuración de la Cuenta</h2>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+        <input type="email" class="w-full px-3 py-2 border rounded border-gray-300 focus:outline-none focus:ring" placeholder="ejemplo@correo.com">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Cambiar Contraseña</label>
+        <input type="password" class="w-full px-3 py-2 border rounded border-gray-300 mb-2" placeholder="Nueva contraseña">
+        <input type="password" class="w-full px-3 py-2 border rounded border-gray-300" placeholder="Confirmar contraseña">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Notificaciones</label>
+        <select class="w-full px-3 py-2 border rounded border-gray-300">
+          <option>Habilitadas</option>
+          <option>Deshabilitadas</option>
+        </select>
+      </div>
+      <div class="text-right">
+        <button class="bg-military-gold text-black px-4 py-2 rounded hover:bg-amber-500 font-semibold">Guardar Cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<app-edit-profile
+  *ngIf="showModal"
+  [open]="showModal"
+  [profileData]="profileData"
+  (onOpenChange)="closeEditProfile()"
+  (onSave)="saveProfile($event)">
+</app-edit-profile>
+
+<app-new-vacancy
+  *ngIf="isCreateJobOpen"
+  [open]="isCreateJobOpen"
+  (onOpenChange)="closeCreateJob()"
+  (onSubmit)="handleCreateJob($event)">
+</app-new-vacancy>
+

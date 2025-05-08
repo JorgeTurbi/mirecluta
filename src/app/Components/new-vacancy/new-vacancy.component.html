@@ -1,0 +1,86 @@
+<div *ngIf="open" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4">
+  <div class="bg-white w-full max-w-2xl rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <lucide-icon [name]="Briefcase" class="h-6 w-6 text-military-gold"></lucide-icon>
+        Crear Nueva Vacante
+      </h2>
+      <p class="text-sm text-gray-500">Complete el formulario para publicar una nueva vacante militar</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="submitForm()" class="space-y-6">
+
+      <div>
+        <label class="block text-sm font-medium">Título de la Posición</label>
+        <input type="text" formControlName="title" placeholder="Ej: Oficial de Comunicaciones"
+               class="input w-full mt-1 px-3 py-2 border rounded text-sm" />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium">Organización</label>
+          <input type="text" formControlName="organization" placeholder="Ej: Ejército Nacional"
+                 class="input w-full mt-1 px-3 py-2 border rounded text-sm" />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium">Ubicación</label>
+          <input type="text" formControlName="location" placeholder="Ej: Bogotá, Colombia"
+                 class="input w-full mt-1 px-3 py-2 border rounded text-sm" />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium">Tipo de Contrato</label>
+          <select formControlName="type" class="input w-full mt-1 px-3 py-2 border rounded text-sm">
+            <option value="full-time">Tiempo Completo</option>
+            <option value="part-time">Medio Tiempo</option>
+            <option value="contract">Contrato</option>
+            <option value="temporary">Temporal</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium">Rama Militar</label>
+          <select formControlName="branch" class="input w-full mt-1 px-3 py-2 border rounded text-sm">
+            <option value="ejercito">Ejército</option>
+            <option value="armada">Armada</option>
+            <option value="fuerza-aerea">Fuerza Aérea</option>
+            <option value="policia">Policía</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Salario/Compensación</label>
+        <input type="text" formControlName="salary" placeholder="Ej: $2,500,000 - $3,500,000 COP mensual"
+               class="input w-full mt-1 px-3 py-2 border rounded text-sm" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Descripción del Puesto</label>
+        <textarea formControlName="description" class="w-full mt-1 px-3 py-2 border rounded text-sm min-h-[100px]"
+                  placeholder="Describa las responsabilidades y objetivos del puesto..."></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium">Requisitos</label>
+        <textarea formControlName="requirements" class="w-full mt-1 px-3 py-2 border rounded text-sm min-h-[100px]"
+                  placeholder="Indique los requisitos necesarios para el puesto: educación, experiencia, habilidades, etc."></textarea>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" class="px-4 py-2 border rounded text-sm hover:bg-gray-100" (click)="cancel()">Cancelar</button>
+        <button type="submit" class="px-4 py-2 bg-military-green text-white rounded text-sm hover:bg-green-700">
+          Publicar Vacante
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

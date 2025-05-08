@@ -1,0 +1,133 @@
+<div *ngIf="loading(); else jobContent" class="flex justify-center py-20">
+  <div class="animate-pulse flex flex-col w-full max-w-4xl">
+    <div class="h-12 bg-gray-200 rounded-md w-3/4 mb-6"></div>
+    <div class="h-72 bg-gray-200 rounded-md w-full mb-6"></div>
+    <div class="h-48 bg-gray-200 rounded-md w-full"></div>
+  </div>
+</div>
+
+<ng-template #jobContent>
+  <div *ngIf="job(); else notFound" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-2">
+      <div class="bg-white border border-gray-200 shadow-md mb-6 rounded-lg overflow-hidden">
+        <div class="bg-[#001F3F] text-white p-4">
+          <h2 class="text-2xl font-semibold">{{ job()!.title }}</h2>
+          <div class="flex flex-wrap gap-2 mt-2">
+            <span [ngClass]="getBranchBadgeColor(job()!.branch)" class="px-2 py-1 rounded text-sm font-medium">
+              {{ job()!.company }}
+            </span>
+            <span class="bg-white text-[#001F3F] px-2 py-1 rounded border text-sm font-medium">{{ job()!.type }}</span>
+          </div>
+        </div>
+
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-gray-700">
+            <div class="flex items-center"><lucide-angular [img]="icons.MapPin" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>{{ job()!.location }}</div>
+            <div class="flex items-center"><lucide-angular [img]="icons.Calendar" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular> {{ job()!.postedDate }}</div>
+            <div class="flex items-center"><lucide-angular [img]="icons.Clock" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular> {{ job()!.applicationDeadline }}</div>
+            <div class="flex items-center"><lucide-angular [img]="icons.DollarSign" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>{{ job()!.salary }}</div>
+          </div>
+
+          <div class="space-y-6">
+            <div>
+              <h3 class="text-lg font-semibold flex items-center mb-3">
+
+                 <lucide-angular [img]="icons.FileText" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>
+                Descripción
+              </h3>
+              <p>{{ job()!.description }}</p>
+            </div>
+
+            <div>
+              <h3 class="text-lg font-semibold flex items-center mb-3">
+                <lucide-angular [img]="icons.Award" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>Responsabilidades
+              </h3>
+              <ul class="list-disc list-inside">
+                <li *ngFor="let r of job()!.responsibilities">{{ r }}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-lg font-semibold flex items-center mb-3">
+                <lucide-angular [img]="icons.User" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>  Requisitos
+              </h3>
+              <ul class="list-disc list-inside">
+                <li *ngFor="let req of job()!.requirements">{{ req }}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="text-lg font-semibold flex items-center mb-3">
+                <lucide-angular [img]="icons.Building" class="mr-2 h-5 w-5 text-[#3A5311]"></lucide-angular>Beneficios
+              </h3>
+              <ul class="list-disc list-inside">
+                <li *ngFor="let b of job()!.benefits">{{ b }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-1">
+      <div class="bg-white border border-gray-200 shadow-md sticky top-6 rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-[#001F3F] mb-4">Aplicar a esta vacante</h3>
+        <p class="text-gray-700 mb-4">Completa tu postulación para la posición de {{ job()!.title }}.</p>
+        <button (click)="handleApply()" class="w-full bg-[#D4AF37] hover:bg-amber-500 text-black py-2 px-4 rounded">
+          Aplicar Ahora
+        </button>
+
+        <!-- Acordeones -->
+        <div class="mt-6 divide-y divide-gray-200">
+          <div *ngFor="let item of accordionItems" class="py-4">
+            <button
+              class="w-full flex justify-between items-center text-left font-medium text-[#001F3F] hover:underline"
+              (click)="toggleAccordion(item.key)"
+            >
+              {{ item.title }}
+              <lucide-angular
+                [name]="accordionState[item.key] ? 'chevron-up' : 'chevron-down'"
+                class="h-5 w-5 text-gray-500"
+              ></lucide-angular>
+            </button>
+            <div *ngIf="accordionState[item.key]" class="mt-3 text-sm text-gray-700 space-y-2">
+              <ng-container [ngSwitch]="item.key">
+                <ng-container *ngSwitchCase="'item1'">
+                  <ol class="list-decimal list-inside">
+                    <li>Revisión de postulaciones (1-2 semanas)</li>
+                    <li>Entrevistas preliminares (virtual)</li>
+                    <li>Evaluación técnica y psicológica</li>
+                    <li>Entrevista final presencial</li>
+                    <li>Verificación de antecedentes</li>
+                    <li>Oferta formal</li>
+                  </ol>
+                </ng-container>
+                <ng-container *ngSwitchCase="'item2'">
+                  <ul class="list-disc list-inside">
+                    <li>Hoja de vida actualizada</li>
+                    <li>Certificados académicos</li>
+                    <li>Certificados de experiencia laboral</li>
+                    <li>Documento de identidad</li>
+                    <li>Certificaciones profesionales</li>
+                  </ul>
+                </ng-container>
+                <ng-container *ngSwitchCase="'item3'">
+                  <p><strong>¿Cuánto dura el proceso?</strong><br />El proceso completo suele durar entre 3 y 5 semanas.</p>
+                  <p><strong>¿Hay periodo de prueba?</strong><br />Sí, 3 meses iniciales con evaluación de desempeño.</p>
+                  <p><strong>¿Se requiere disponibilidad inmediata?</strong><br />Preferiblemente, pero se consideran casos que requieran preaviso.</p>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #notFound>
+  <div class="bg-white border border-red-200 p-6 rounded shadow-md">
+    <h2 class="text-red-600 text-xl font-semibold mb-2">Vacante no encontrada</h2>
+    <p>Lo sentimos, la vacante que estás buscando no existe o ha sido removida.</p>
+  </div>
+</ng-template>

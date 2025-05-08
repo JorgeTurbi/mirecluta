@@ -1,0 +1,60 @@
+<nav class="bg-military-navy text-white py-4 sticky top-0 z-50 shadow-md">
+  <div class="container mx-auto px-4">
+    <div class="flex justify-between items-center">
+      <a routerLink="/inicio" class="flex items-center space-x-3">
+        <img
+          src="multimedia/logos/logo.png"
+          alt="C5i Logo"
+          class="h-16 w-16"
+        />
+        <span class="text-2xl font-bold text-military-gold">Sistema de Reclutamiento Militar</span>
+      </a>
+
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-6">
+        <a routerLink="/inicio" class="hover:text-military-gold transition-colors">Inicio</a>
+        <a routerLink="/vacantes" class="hover:text-military-gold transition-colors">Vacantes</a>
+        <a routerLink="/Perfil" class="hover:text-military-gold transition-colors">Perfil</a>
+        <div class="flex space-x-2">
+          <a routerLink="/login" class="border border-military-gold text-military-gold px-4 py-2 rounded hover:text-black hover:bg-military-gold">
+            Ingresar
+          </a>
+          <a routerLink="/registro" class="bg-military-gold text-black px-4 py-2 rounded hover:bg-amber-500">
+            Registrarse
+          </a>
+        </div>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button
+          (click)="toggleMenu()"
+          class="text-white hover:text-military-gold focus:outline-none"
+        >
+          <svg *ngIf="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg *ngIf="isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div *ngIf="isMenuOpen" class="md:hidden mt-4 pb-4 animate-fade-in">
+      <div class="flex flex-col space-y-4">
+        <a routerLink="/" class="px-3 py-2 rounded hover:bg-military-green transition-colors" (click)="closeMenu()">Inicio</a>
+        <a routerLink="/jobs" class="px-3 py-2 rounded hover:bg-military-green transition-colors" (click)="closeMenu()">Vacantes</a>
+        <a routerLink="/profile" class="px-3 py-2 rounded hover:bg-military-green transition-colors" (click)="closeMenu()">Perfil</a>
+        <div class="flex flex-col space-y-2">
+          <a routerLink="/login" class="border border-military-gold text-military-gold px-4 py-2 rounded hover:text-black hover:bg-military-gold w-full text-center" (click)="closeMenu()">Ingresar</a>
+
+         <a routerLink="/registro"  class="bg-military-gold text-black px-4 py-2 rounded hover:bg-amber-500 w-full text-center" (click)="closeMenu()">Registrarse</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

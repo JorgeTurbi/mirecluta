@@ -1,0 +1,34 @@
+<div class="card-military p-6 mb-4">
+  <div class="flex justify-between items-start">
+    <div>
+      <h3 class="text-xl font-bold text-military-navy">{{ title }}</h3>
+      <div class="flex items-center mt-2 text-military-gray">
+        <i class="lucide lucide-briefcase h-4 w-4 mr-2"></i>
+        <span class="mr-4">{{ company }}</span>
+        <span>{{ location }}</span>
+      </div>
+      <div class="mt-2">
+        <span class="inline-block bg-military-navy text-white text-sm px-3 py-1 rounded-full">
+          {{ type }}
+        </span>
+      </div>
+    </div>
+    <span class="text-sm text-military-gray">Publicado: {{ postedDate }}</span>
+  </div>
+
+  <div class="mt-4">
+    <h4 class="font-semibold flex items-center">
+      <i class="lucide lucide-graduation-cap h-4 w-4 mr-2"></i>
+      Requisitos:
+    </h4>
+    <ul class="mt-2 ml-6 list-disc">
+      <li *ngFor="let req of requirements" class="text-sm text-gray-700">{{ req }}</li>
+    </ul>
+  </div>
+
+  <div class="mt-6 flex justify-end">
+    <a [routerLink]="'/detalles/' + id" class="bg-military-green hover:bg-green-700 text-white px-4 py-2 rounded font-medium">
+      Ver Detalles
+    </a>
+  </div>
+</div>

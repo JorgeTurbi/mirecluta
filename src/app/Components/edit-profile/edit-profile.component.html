@@ -1,0 +1,104 @@
+<div *ngIf="open" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-start justify-center p-4">
+  <div class="bg-white w-full max-w-2xl rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+
+    <!-- Header -->
+    <div class="mb-6">
+      <h2 class="text-2xl font-bold">Editar Perfil</h2>
+      <p class="text-sm text-gray-500">Actualiza tu información personal y profesional</p>
+    </div>
+
+    <!-- Formulario -->
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-6">
+
+      <!-- Foto de Perfil -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Foto de Perfil</label>
+        <div class="flex items-center space-x-4">
+
+          <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200 border border-gray-300 flex items-center justify-center">
+            <img
+              [src]="form.value.profileImage || 'assets/img/default-profile.png'"
+              (error)="onImageError($event)"
+              alt="Foto"
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileChange($event)"
+            class="text-sm"
+          />
+        </div>
+      </div>
+
+      <!-- Nombre -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Nombre Completo</label>
+        <input type="text" formControlName="name" class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-military-green" />
+      </div>
+
+      <!-- Rango -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Rango</label>
+        <select formControlName="rank" class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-military-green">
+          <option value="" disabled>Selecciona un rango</option>
+          <option *ngFor="let r of ['Soldado', 'Cabo', 'Sargento', 'Teniente', 'Capitán', 'Mayor', 'Coronel', 'General']" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+
+      <!-- Especialización -->
+      <div>
+        <label class="block text-sm font-medium mb-1">Especialización</label>
+        <input type="text" formControlName="specialization" class="w-full border rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-military-green" />
+      </div>
+
+      <!-- Certificaciones -->
+      <div>
+        <h3 class="text-lg font-semibold">Certificaciones</h3>
+        <p class="text-sm text-gray-500 mb-2">Sube documentos que demuestren tus certificaciones y habilidades</p>
+
+        <div *ngFor="let cert of certificates(); let i = index" class="flex items-start gap-2 mb-3">
+          <div class="flex-1 space-y-2">
+            <input
+              type="text"
+              (input)="handleCertificateNameChange(i,$event)"
+              class="w-full border rounded px-3 py-2 text-sm"
+              placeholder="Nombre de la certificación"
+            />
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx,.jpg,.png"
+              (change)="handleCertificateFileChange(i, $event)"
+              class="text-sm"
+            />
+            <span *ngIf="cert.file" class="text-green-600 text-xs">Archivo seleccionado</span>
+          </div>
+          <button type="button" class="text-red-600 hover:text-red-800 mt-2">
+          <!-- // (click)="handleRemoveCertificate(i)" -->
+            <lucide-angular [img]="Trash" class="w-5 h-5"></lucide-angular>
+
+          </button>
+        </div>
+
+        <button type="button" (click)="handleAddCertificate()" class="w-full flex items-center justify-center border border-gray-300 rounded px-4 py-2 text-sm hover:bg-gray-50">
+          <lucide-icon name="plus" class="w-4 h-4 mr-2"></lucide-icon>
+          Añadir Certificación
+        </button>
+      </div>
+
+      <!-- Acciones -->
+      <div class="flex justify-end gap-3 pt-4">
+        <button type="button" (click)="cancel()" class="px-4 py-2 border rounded text-sm hover:bg-gray-100">
+          Cancelar
+        </button>
+        <button type="submit" class="px-4 py-2 bg-military-green text-white rounded text-sm hover:bg-green-700">
+          Guardar Cambios
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+
