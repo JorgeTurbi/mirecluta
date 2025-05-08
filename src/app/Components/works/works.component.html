@@ -5,7 +5,9 @@
 
     <div class="grid md:grid-cols-3 gap-8">
       <!-- Crea tu Perfil -->
+           <a routerLink="/registro" >
       <div class="flex flex-col items-center text-center p-6 card-military">
+
         <div class="bg-military-navy rounded-full p-4 mb-4">
 
           <lucide-angular [img]="User" class="w-8 h-8 text-military-gold"></lucide-angular>
@@ -14,9 +16,11 @@
         <p class="text-gray-600">
           Destaca tu experiencia militar, formación y habilidades para aumentar tus oportunidades.
         </p>
-      </div>
 
+      </div>
+  </a>
       <!-- Explora Vacantes -->
+          <a routerLink="/vacantes" >
       <div class="flex flex-col items-center text-center p-6 card-military">
         <div class="bg-military-navy rounded-full p-4 mb-4">
 
@@ -27,8 +31,10 @@
           Encuentra oportunidades que valoran tu experiencia militar y aplica fácilmente.
         </p>
       </div>
+      </a>
 
       <!-- Publica Vacantes -->
+       <a routerLink="/Perfil" >
       <div class="flex flex-col items-center text-center p-6 card-military">
         <div class="bg-military-navy rounded-full p-4 mb-4">
 
@@ -39,6 +45,7 @@
           Instituciones pueden publicar vacantes específicas para perfiles militares.
         </p>
       </div>
+      </a>
     </div>
   </div>
 </div>
